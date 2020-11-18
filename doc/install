@@ -1,0 +1,57 @@
+
+############################  HTTPS-SSL         ###################
+###################################################################
+git clone https://github.com/HiMinds/himinds-boosting-innovation-web-secure-cra.git
+cd himinds-boosting-innovation-web-secure-cra/
+cd hn-app
+yarn
+yarn build
+sudo ufw allow from any to any port 5000 proto tcp
+sudo ufw status
+sudo ufw status numbered
+sudo ufw delete <number>
+
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+# ubuntu 18
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot
+#ubuntu 20.04
+sudo apt install certbot python3-certbot-apache
+sudo mkdir -p /home/<user>/certbot/{.config,etc}
+sudo touch /home/<user>/certbot/cli.ini
+sudo certbot certonly -d my.domain.com --manual -c /home/<user>/certbot/cli.ini
+
+your mail
+A
+Y
+Y
+
+Create a file containing just this data:
+
+ITY2MxpGbVYHy72BiJpqiT2jJnUU-txFA5VdhPDBBQ4.LgidBJL8e4hpF3_YouvqufIPDz8T4iS6RZdhMDKLfUM
+
+And make it available on your web server at this URL:
+
+http://escambo.club/.well-known/acme-challenge/ITY2MxpGbVYHy72BiJpqiT2jJnUU-txFA5VdhPDBBQ4
+
+#your certificates in
+/home/<user>/certbot/etc/live/my.domain.com/
+
+sudo env PATH=$PATH:/usr/local/bin pm2 startup -u <user>
+
+
+
+cd hn-secure-deploy
+yarn
+
+#You need to modify your .~/.profile (Ubuntu) or ~/.bash_profile (Mac):
+export SERVER_PORT=5000
+export SERVE_DIRECTORY = /home/<user>/git/himinds-boosting-innovation-web-secure-cra/hn-app/build
+
+pm2 start secure-server.js --name "secure deploy of CRA"
+
+############################  HTTPS-SSL         ###################
+###################################################################
